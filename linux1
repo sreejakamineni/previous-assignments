@@ -1,0 +1,26 @@
+curl -s http://public-dns.info/nameserver/br.csv | cut -d, -f1 | shuf | tail -n 50 | xargs -i timeout 1 ping -c1 -w 1 {} | grep "time=" | awk '{print substr($7, 6, length($7)) " " substr($4, 1, length($4) -1)}' | sort -n | awk '{print $2 " " $1 "ms"}' | head -n 10
+
+
+
+
+ curl : curl is a tool to transfer data from or to a server
+    ->curl -s :When used with -s, --silent, it makes curl show an error message
+              if it fails.
+cut :The cut command in UNIX is a command for cutting out the sections from each line of files and writing the result to standard output. It
+  -d : it tells to cut till the given delimeter.
+   -f1: which means from field 1
+shuf :it will shuffle the lines and write the result to standard output.
+tail : it prints the last 10 lines by default.
+  -n : it prints the mentioned number of lines from last
+xargs : xargs is a command on Unix and most Unix-like operating systems used to build and execute commands from standard input.
+ ping: Ping works by sending one or more ICMP (Internet Control Message Protocol) Echo Request packages to a specified destination IP on the network and waits for a reply.
+  Timeout:  it enables you to execute a command with a time limit. 
+  grep : Grep, which stands for "global regular expression print," is a powerful tool for matching a regular expression against text in a file.
+   Awk: Awk is a scripting language used for manipulating data and generating reports. The awk command programming language requires no compiling, and allows the user to use variables, numeric functions, string functions, and logical operators.
+  substr($7,6,length($7))" "substr($4,1length($4)-1): it starts from the coloumn-7, in column 7 it prints the output from 6th index  to length of the column 7  
+ " ": it concatinates two substrings.
+ sort :  SORT command sorts the contents of a text file, line by line.
+   -n:  compare according to string numerical value.
+ head : The head command is a command-line utility for outputting the first part of files given to it via standard input.
+   -n: it prints the mentioned number of lines from top.
+
